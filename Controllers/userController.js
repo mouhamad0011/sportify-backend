@@ -3,8 +3,8 @@ const connection = require('../config/database');
 // HON AAM BAAML AAD
 exports.createUser = async (req, res) => {
   try {
-    const { user_id, role ,full_name,username,email,password,joining_date } = req.body;
-    const query =`INSERT INTO users VALUES (${user_id},'${role}','${full_name}','${username}','${email}','${password}','${joining_date}')`;
+    const { role ,full_name,username,email,password,joining_date } = req.body;
+    const query =`INSERT INTO users  (role, full_name, username, email, password, joining_date) VALUES ('${role}','${full_name}','${username}','${email}','${password}','${joining_date}')`;
     const [result]= await connection.promise().query(query);
     res.status(201).json(result);
   } catch (error) {

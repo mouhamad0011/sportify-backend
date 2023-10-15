@@ -7,8 +7,6 @@ const connection = mysql.createPool({
   database: 'sportify'
 });
 
-
-
 const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   role VARCHAR(255),
@@ -99,6 +97,5 @@ connection.promise().query(createClassesQuery)
   .catch((error) => {
     console.error(`Error creating table classes:`, error);
   });
-
 
 module.exports = connection;

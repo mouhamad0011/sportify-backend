@@ -3,8 +3,8 @@ const connection = require('../config/database');
 
 exports.addClass=async(req,res)=>{
     try{
-        const {class_id,course_id, date,hour}=req.body;
-        const query =`INSERT INTO users VALUES (${class_id},${course_id},'${date}','${hour}')`;
+        const {course_id, date,hour}=req.body;
+        const query =`INSERT INTO users (course_id,date,hour) VALUES (${course_id},'${date}','${hour}')`;
         const [result]= await connection.promise().query(query);
         res.status(200).json(result);
     }

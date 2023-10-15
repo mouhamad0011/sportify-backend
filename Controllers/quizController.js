@@ -3,8 +3,8 @@ const connection = require('../config/database');
 // HON AAM BAAML AAD
 exports.createQuiz = async (req, res) => {
   try {
-    const {quiz_id , trainee_id , course_name ,date ,result } = req.body;
-    const query =`INSERT INTO users VALUES (${quiz_id},${trainee_id},'${course_name}','${date}','${result}')`;
+    const { trainee_id , course_name ,date ,result } = req.body;
+    const query =`INSERT INTO users (trainee_id , course_name ,date ,result) VALUES (${trainee_id},'${course_name}','${date}','${result}')`;
     const [results]= await connection.promise().query(query);
     res.status(201).json(results);
   } catch (error) {
