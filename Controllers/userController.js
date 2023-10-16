@@ -25,6 +25,28 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+exports.getAllCoaches = async (req, res) => {
+  try {
+    const query = "SELECT * FROM users WHERE role='Coach' OR role='coach'";
+    const [result] = await connection.promise().query(query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
+exports.getAllTrainees = async (req, res) => {
+  try {
+    const query = "SELECT * FROM users WHERE role='Trainee' OR role='trainee'";
+    const [result] = await connection.promise().query(query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 // HON AAM BAAML GET LA USER WAHAD BY ID
 exports.getOneUserById = async (req ,res) =>{
   try{

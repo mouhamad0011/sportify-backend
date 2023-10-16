@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
-
+require('dotenv').config();
 const connection = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'sportify'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password:'',
+  database: process.env.DB_NAME
 });
 
 const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
