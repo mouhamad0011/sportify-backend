@@ -9,11 +9,11 @@ const connection = mysql.createPool({
 
 const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
-  role VARCHAR(255),
-  full_name VARCHAR(255),
-  username VARCHAR(255),
-  email VARCHAR(255),
-  password VARCHAR(255),
+  role VARCHAR(10),
+  full_name VARCHAR(50),
+  username VARCHAR(30) UNIQUE,
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(30),
   joining_date DATE
 )`;
 connection.promise().query(createUsersQuery)
@@ -30,7 +30,7 @@ connection.promise().query(createUsersQuery)
     trainee_id INT,
     course_id INT,
     date DATE,
-    result VARCHAR(255),
+    result VARCHAR(20),
     FOREIGN KEY (trainee_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE ON UPDATE CASCADE
   )
@@ -96,6 +96,24 @@ connection.promise().query(createClassesQuery)
   })
   .catch((error) => {
     console.error(`Error creating table classes:`, error);
+  });
+
+  const createQAQuery = `
+  CREATE TABLE IF NOT EXISTS QA (
+    quiz_id INT,
+    questions VARCHAR(500),
+    choices VARCHAR(700),
+    correct_answers VARCHAR(500),
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE ON UPDATE CASCADE
+  )
+`;
+
+connection.promise().query(createQAQuery)
+  .then(() => {
+    console.log(`QA has been created`);
+  })
+  .catch((error) => {
+    console.error(`Error creating table QA:`, error);
   });
 
 module.exports = connection;

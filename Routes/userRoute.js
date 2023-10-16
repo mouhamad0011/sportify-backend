@@ -9,4 +9,5 @@ router.get('/getOneUserByName/:name', controllers.getOneUserByName);
 router.get('/getOneUserByEmailPassword/:email/:password',controllers.getOneUserByEmailPassword);
 router.delete('/delete/:id',controllers.deleteUser);
 
+
 module.exports = router;
