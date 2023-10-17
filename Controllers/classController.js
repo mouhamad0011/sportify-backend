@@ -62,3 +62,28 @@ exports.getAllClassesByCourseId= async (req,res)=>{
         res.status(500).json({message:"ERRORR"});
     }
 }
+
+exports.getAllClassesWithDetails = async (req, res) => {
+    try {
+      const query=`SELECT class_id,course_name,full_name,date,hour
+       FROM classes,courses,users  WHERE coach_id=user_id AND 
+       classes.course_id=courses.course_id`;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'errorrr' });
+    }
+  };
+
+  exports.deleteClass = async (req, res) => {
+    const classId = req.params.id;
+    try {
+      const query=`DELETE FROM classes WHERE class_id=${classId}`;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'errorrr' });
+    }
+  };

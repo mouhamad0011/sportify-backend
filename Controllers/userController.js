@@ -63,8 +63,8 @@ exports.getOneUserById = async (req ,res) =>{
 // HON AAM BAAML GET LA USER WAHAD BY NAME
 exports.getOneUserByName = async (req ,res) =>{
   try{
-    const userName=req.params.name;
-    const query=`SELECT * FROM users WHERE username= '${userName}'`;
+    const fullName=req.params.name;
+    const query=`SELECT * FROM users WHERE full_name= '${fullName}'`;
     const [result] = await connection.promise().query(query);
     res.status(200).json(result);
   }
