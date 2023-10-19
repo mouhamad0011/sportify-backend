@@ -73,3 +73,16 @@ exports.getCourseById = async (req ,res) =>{
       res.status(500).json({ message: 'errorrr' });
     }
   };
+
+  exports.getAllCoursesByCoachName = async (req, res) => {
+    const name=req.params.name;
+    try {
+      const query=`SELECT course_id,course_name,description
+       FROM courses,users  WHERE coach_id=user_id AND full_name='${name}'`;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'errorrr' });
+    }
+  };

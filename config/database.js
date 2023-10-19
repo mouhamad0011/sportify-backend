@@ -27,11 +27,9 @@ connection.promise().query(createUsersQuery)
   const createQuizzesQuery = `
   CREATE TABLE IF NOT EXISTS quizzes (
     quiz_id INT AUTO_INCREMENT PRIMARY KEY,
-    trainee_id INT,
     course_id INT,
     date DATE,
-    result VARCHAR(20),
-    FOREIGN KEY (trainee_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    hour VARCHAR(10),
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE ON UPDATE CASCADE
   )
 `;

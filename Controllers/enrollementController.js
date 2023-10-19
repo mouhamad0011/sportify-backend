@@ -22,11 +22,11 @@ exports.addEnrollement= async (req,res)=>{
         res.status(500).json({message:"error occured : could not add data"});
     }
 }
-exports.updateEnrollementByTraineeId= async (req,res)=>{
+exports.updateEnrollementByTraineeName= async (req,res)=>{
     try {
-        const trainee_id=req.params.id;
-        const {present}= req.body;
-        const query= `UPDATE enrollements SET present=${present} WHERE trainee_id=${trainee_id}`;
+        const trainee_name=req.params.name;
+        const query= `UPDATE enrollement SET present=!present WHERE trainee_id=(SELECT user_id 
+                     FROM users WHERE full_name='${trainee_name}')`;
         const [result]= await connection.promise().query(query);
         res.status(200).json(result);
     } catch (error) {

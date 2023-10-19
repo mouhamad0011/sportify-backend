@@ -3,8 +3,8 @@ const connection = require('../config/database');
 // HON AAM BAAML AAD
 exports.createQuiz = async (req, res) => {
   try {
-    const { trainee_id , course_name ,date ,result } = req.body;
-    const query =`INSERT INTO users (trainee_id , course_name ,date ,result) VALUES (${trainee_id},'${course_name}','${date}','${result}')`;
+    const { course_id ,date,hour} = req.body;
+    const query =`INSERT INTO quizzes (course_id ,date,hour) VALUES (${course_id},'${date}','${hour}')`;
     const [results]= await connection.promise().query(query);
     res.status(201).json(results);
   } catch (error) {
@@ -40,10 +40,10 @@ exports.getOneQuizById = async (req ,res) =>{
 }
 
 // HON AAM BAAML GET LA QUIZ WHDE BY COURSE_NAME
-exports.getOneQuizByCourseName = async (req ,res) =>{
+exports.getOneQuizByCourseId = async (req ,res) =>{
   try{
-    const courseName=req.params.courseName;
-    const query=`SELECT * FROM quizzes WHERE course_name= '${courseName}'`;
+    const courseId=req.params.id;
+    const query=`SELECT * FROM quizzes WHERE course_id= ${courseId}`;
     const [result] = await connection.promise().query(query);
     res.status(200).json(result);
   }
