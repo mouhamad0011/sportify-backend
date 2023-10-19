@@ -6,6 +6,7 @@ router.post('/add',controllers.addCourse);
 router.get('/getAll',controllers.getAllCourses);
 router.get('/getCourseById',controllers.getCourseById);
 router.delete('/delete/:id',controllers.deleteCourse);
+router.get('/getAllCoursesByCoachName/:name',controllers.getAllCoursesByCoachName);
 router.get('/getAllCoursesWithCoachName',controllers.getAllCoursesWithCoachName);
 router.get('/getCourseIdByCourseName/:name',controllers.getCourseIdByCourseName);
 module.exports=router;

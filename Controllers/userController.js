@@ -25,6 +25,18 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+exports.getUserId = async (req, res) => {
+  const name=req.params.name;
+  try {
+    const query = `SELECT user_id FROM users WHERE full_name='${name}'`;
+    const [result] = await connection.promise().query(query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 exports.getAllCoaches = async (req, res) => {
   try {
     const query = "SELECT * FROM users WHERE role='Coach' OR role='coach'";

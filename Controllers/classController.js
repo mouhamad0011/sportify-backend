@@ -63,6 +63,18 @@ exports.getAllClassesByCourseId= async (req,res)=>{
     }
 }
 
+exports.getClassesByCourseId= async (req,res)=>{
+  try {
+      const courseId=req.params.id;
+      const query=`SELECT class_id FROM classes WHERE  course_id=${courseId}`;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({message:"ERRORR"});
+  }
+}
+
 exports.getAllClassesWithDetails = async (req, res) => {
     try {
       const query=`SELECT class_id,course_name,full_name,date,hour
@@ -75,6 +87,38 @@ exports.getAllClassesWithDetails = async (req, res) => {
       res.status(500).json({ message: 'errorrr' });
     }
   };
+
+  exports.getClassCourseDateHour = async (req, res) => {
+    const id=req.params.id;
+    try {
+      const query=`SELECT classes.class_id, courses.course_name, classes.date, classes.hour
+      FROM classes, courses
+      WHERE courses.coach_id = ${id}
+      `;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'errorrr' });
+    }
+  };
+
+  exports.getClassNamesPresence = async (req, res) => {
+    const id=req.params.id;
+    try {
+      const query=`SELECT full_name,present
+      FROM enrollement,users
+      WHERE enrollement.class_id =${id}
+      AND enrollement.trainee_id=users.user_id
+      `;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'errorrr' });
+    }
+  };
+
 
   exports.deleteClass = async (req, res) => {
     const classId = req.params.id;

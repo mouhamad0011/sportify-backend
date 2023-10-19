@@ -4,6 +4,7 @@ const controllers = require('../Controllers/userController');
 
 router.post('/add', controllers.createUser);
 router.get('/getAll', controllers.getAllUsers);
+router.get('/getUserId/:name', controllers.getUserId);
 router.get('/getAllCoaches', controllers.getAllCoaches);
 router.get('/getAllTrainees', controllers.getAllTrainees);
 router.get('/getOneUserById/:id', controllers.getOneUserById);
