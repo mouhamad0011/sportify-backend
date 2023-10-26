@@ -6,7 +6,7 @@ router.get('/getAll', enrollementController.getEnrollements);
 router.get('/getTraineesByClassId/:id',enrollementController.getEnrollementByClassId);
 router.get('/getAttendanceByClassId/:id',enrollementController.getAttendanceByClassId);
 router.post('/add',enrollementController.addEnrollement);
-router.put('/update/:name',enrollementController.updateEnrollementByTraineeName);
-router.delete('/delete/:id',enrollementController.deleteEnrollement);
+router.put('/update/:name/:id',enrollementController.updateEnrollementByTraineeName);
+router.delete('/delete/:id/:ID',enrollementController.deleteEnrollement);
 router.get('/getEnrollementByTraineeId/:id', enrollementController.getEnrollementByTraineeId)
 module.exports = router;
