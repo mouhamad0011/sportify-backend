@@ -94,6 +94,7 @@ exports.getAllClassesWithDetails = async (req, res) => {
       const query=`SELECT classes.class_id, courses.course_name, classes.date, classes.hour
       FROM classes, courses
       WHERE courses.coach_id = ${id}
+      AND courses.course_id=classes.course_id
       `;
       const [result]= await connection.promise().query(query);
       res.status(200).json(result);
