@@ -86,3 +86,23 @@ exports.getCourseById = async (req ,res) =>{
       res.status(500).json({ message: 'errorrr' });
     }
   };
+
+  exports.getAllCoursesByTraineeId = async (req, res) => {
+    
+    const id=req.params.id;
+    try {
+      const query=`SELECT distinct users.full_name as coach,course_name,quizzes.quiz_id,questions,choices,correct_answers,quizzes.date,quizzes.hour
+       FROM courses,classes,enrollement,quizzes,QA,users
+       WHERE courses.course_id=classes.course_id
+       AND courses.coach_id=users.user_id
+       AND classes.class_id=enrollement.class_id
+       AND courses.course_id=quizzes.course_id
+       AND quizzes.quiz_id=QA.quiz_id
+       AND enrollement.trainee_id=${id} `;
+      const [result]= await connection.promise().query(query);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'errorrr' });
+    }
+  };

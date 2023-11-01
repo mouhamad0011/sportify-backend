@@ -9,4 +9,5 @@ router.delete('/delete/:id',controllers.deleteCourse);
 router.get('/getAllCoursesByCoachName/:name',controllers.getAllCoursesByCoachName);
 router.get('/getAllCoursesWithCoachName',controllers.getAllCoursesWithCoachName);
 router.get('/getCourseIdByCourseName/:name',controllers.getCourseIdByCourseName);
+router.get('/getAllCoursesByTraineeId/:id',controllers.getAllCoursesByTraineeId);
 module.exports=router;
