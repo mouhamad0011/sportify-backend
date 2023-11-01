@@ -47,6 +47,40 @@ exports.getEnrollementByClassId = async (req, res) => {
         res.status(400).json({ message: "An error occured: couldn't get data " });
     }
 }
+exports.getEnrollementByClassIdAndTraineeId = async (req, res) => {
+    try {
+        const classId = req.params.id;
+        const traineeId = req.params.Id;
+        const query1 = `SELECT * FROM enrollement WHERE class_id=${classId} AND trainee_id=${traineeId}`;
+        const [result] = await connection.promise().query(query1);
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ message: "An error occured: couldn't get data " });
+    }
+}
+
+
+exports.getEnrollementForAllClasses = async (req, res) => {
+    try {
+        const traineeId = req.params.id;
+        const courseId = req.params.ID;
+        const query1 = `SELECT enrollement.class_id, enrollement.trainee_id
+                        FROM enrollement, classes, courses
+                        WHERE
+                        enrollement.trainee_id=${traineeId}
+                        AND courses.course_id = ${courseId}
+                        AND courses.course_id = classes.course_id
+                        AND classes.class_id = enrollement.class_id
+                        `;
+
+        const [result] = await connection.promise().query(query1);
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ message: "Error " });
+    }
+}
 
 exports.getAttendanceByClassId = async (req, res) => {
     try {
@@ -64,8 +98,9 @@ exports.deleteEnrollement = async (req, res) => {
     const classId = req.params.id;
     const traineeId = req.params.ID;
     try {
-        const query = `DELETE FROM enrollement WHERE class_id=${classId} AND trainee_id=${traineeId}`;
+        const query = `DELETE FROM enrollement WHERE class_id=${classId} AND trainee_id=${traineeId}`; 
         const [result] = await connection.promise().query(query);
+
         res.status(200).json(result);
     } catch (error) {
         console.error(error);
