@@ -11,6 +11,6 @@ router.get('/getOneUserById/:id', controllers.getOneUserById);
 router.get('/getOneUserByName/:name', controllers.getOneUserByName);
 router.get('/getOneUserByEmailPassword/:email/:password',controllers.getOneUserByEmailPassword);
 router.delete('/delete/:id',controllers.deleteUser);
-
+router.put('/update/:id', controllers.updateUser);
 
 module.exports = router;
