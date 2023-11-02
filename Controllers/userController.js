@@ -71,6 +71,28 @@ exports.getOneUserById = async (req, res) => {
     console.log(error);
   }
 }
+exports.getUsersByUsername = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const query = `SELECT * FROM users WHERE username='${username}'`;
+    const [result] = await connection.promise().query(query);
+    res.status(200).json(result);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+exports.getUsersByEmail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const query = `SELECT * FROM users WHERE email='${email}'`;
+    const [result] = await connection.promise().query(query);
+    res.status(200).json(result);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 
 // HON AAM BAAML GET LA USER WAHAD BY NAME
 exports.getOneUserByName = async (req, res) => {
