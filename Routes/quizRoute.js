@@ -7,5 +7,5 @@ router.get('/getAll', controllers.getAllQuizzes);
 router.get('/getOneQuizById/:id', controllers.getOneQuizById);
 router.get('/getOneQuizByCourseId/:id', controllers.getOneQuizByCourseId);
 router.delete('/delete/:id',controllers.deleteQuiz);
-
+router.put('/update/:id', controllers.updateQuiz);
 module.exports = router;

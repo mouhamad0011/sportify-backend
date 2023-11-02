@@ -66,4 +66,15 @@ exports.deleteQuiz = async (req, res) => {
   }
 };
 
-
+exports.updateQuiz = async (req, res) => {
+  const quizId = req.params.id;
+  const {date,hour}=req.body;
+  try {
+    const query=`UPDATE quizzes SET date="${date}",hour="${hour}" WHERE quiz_id=${quizId}`;
+    const [result]= await connection.promise().query(query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'errorrr' });
+  }
+};
