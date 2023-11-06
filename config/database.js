@@ -4,7 +4,8 @@ const connection = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  connectionLimit:10
 });
 
 const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
