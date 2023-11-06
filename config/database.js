@@ -3,7 +3,7 @@ require('dotenv').config();
 const connection = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
-  password: process.env.PASSWORD,
+  password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 });
 
@@ -14,7 +14,7 @@ const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(30) UNIQUE,
   email VARCHAR(100) UNIQUE,
   password VARCHAR(255),
-  joining_date DATE
+  joining_date VARCHAR(255)
 )`;
 connection.promise().query(createUsersQuery)
   .then(() => {
