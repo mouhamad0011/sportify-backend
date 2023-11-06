@@ -1,17 +1,27 @@
 const connection = require('../config/database');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // HON AAM BAAML AAD
 exports.createUser = async (req, res) => {
   try {
     const { role, full_name, username, email, password, joining_date } = req.body;
-    const query = `INSERT INTO users  (role, full_name, username, email, password, joining_date) VALUES ('${role}','${full_name}','${username}','${email}','${password}','${joining_date}')`;
+    const hashedPassword = await bcrypt.hash(password, 10); 
+    const query = `INSERT INTO users (role, full_name, username, email, password, joining_date) VALUES ('${role}','${full_name}','${username}','${email}','${hashedPassword}','${joining_date}')`;
     const [result] = await connection.promise().query(query);
-    res.status(201).json(result);
+    if(!result){
+      throw new Error("could not add");
+    }
+    const user=result[0];
+    const token = jwt.sign({user}, process.env.SECRET_VALUE, { expiresIn: '1d' });
+    res.status(201).json({user,token}); 
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).json({ error: 'Server Error' });
   }
-}
+};
+
 
 // HON AAM BAAML GET 
 exports.getAllUsers = async (req, res) => {
@@ -109,17 +119,33 @@ exports.getOneUserByName = async (req, res) => {
 
 //HON BDE AAML GET LAL USER LAMMA YAAML SIGN IN
 exports.getOneUserByEmailPassword = async (req, res) => {
-  try {
     const email = req.params.email;
     const password = req.params.password;
-    const query = `SELECT * FROM users WHERE email='${email}'
-    AND password='${password}'`;
-    const [result] = await connection.promise().query(query);
-    res.status(200).json(result);
-  }
-  catch (error) {
-    console.log(error);
-  }
+    try {
+      const query = `SELECT * FROM users WHERE email =?`;
+      
+      const [result] = await connection.promise().query(query,[email]);
+  
+      if (result.length === 0) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      const user = result[0];
+      console.log(user);
+      const isPasswordValid = await bcrypt.compare("Omar@123", user.password);
+      
+      // console.log(await bcrypt.hash(password, 10))
+      // console.log(await isPasswordValid)
+      if (isPasswordValid) {
+        const token = jwt.sign(user, process.env.SECRET_VALUE, { expiresIn: '1d' });
+        res.status(201).json({user,token}); 
+      } else {
+        res.status(401).json({ error: 'failed' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server Error' });
+    }
 }
 
 //HON AAM BAAML DELETE
