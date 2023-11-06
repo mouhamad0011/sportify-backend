@@ -132,7 +132,7 @@ exports.getOneUserByEmailPassword = async (req, res) => {
   
       const user = result[0];
       console.log(user);
-      const isPasswordValid = await bcrypt.compare("Omar@123", user.password);
+      const isPasswordValid = await bcrypt.compare(password, user.password);
       
       // console.log(await bcrypt.hash(password, 10))
       // console.log(await isPasswordValid)

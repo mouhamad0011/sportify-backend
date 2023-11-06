@@ -13,7 +13,7 @@ const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
   full_name VARCHAR(50),
   username VARCHAR(30) UNIQUE,
   email VARCHAR(100) UNIQUE,
-  password VARCHAR(30),
+  password VARCHAR(255),
   joining_date DATE
 )`;
 connection.promise().query(createUsersQuery)
