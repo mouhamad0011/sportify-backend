@@ -20,6 +20,7 @@ const createUsersQuery = `CREATE TABLE IF NOT EXISTS users (
 connection.promise().query(createUsersQuery)
   .then(() => {
     console.log(`users has been created `);
+    connection.release();
   })
   .catch((error) => {
     console.error(`Error creating table "users":`, error);
@@ -38,6 +39,7 @@ connection.promise().query(createUsersQuery)
 connection.promise().query(createQuizzesQuery)
   .then(() => {
     console.log(`quizzes has been created`);
+    connection.release();
   })
   .catch((error) => {
     console.error(`Error creating table quizzes:`, error);
@@ -56,6 +58,7 @@ connection.promise().query(createQuizzesQuery)
 connection.promise().query(createEnrollementQuery)
   .then(() => {
     console.log(`enrollement has been created`);
+    connection.release();
   })
   .catch((error) => {
     console.error(`Error creating table enrollement:`, error);
@@ -74,6 +77,7 @@ connection.promise().query(createEnrollementQuery)
 connection.promise().query(createCoursesQuery)
   .then(() => {
     console.log(`courses has been created`);
+    connection.release();
   })
   .catch((error) => {
     console.error(`Error creating table courses:`, error);
@@ -92,6 +96,7 @@ connection.promise().query(createCoursesQuery)
 connection.promise().query(createClassesQuery)
   .then(() => {
     console.log(`classes has been created`);
+    connection.release();
   })
   .catch((error) => {
     console.error(`Error creating table classes:`, error);
@@ -110,6 +115,7 @@ connection.promise().query(createClassesQuery)
 connection.promise().query(createQAQuery)
   .then(() => {
     console.log(`QA has been created`);
+    connection.release();
   })
   .catch((error) => {
     console.error(`Error creating table QA:`, error);
