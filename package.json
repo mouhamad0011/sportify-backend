@@ -10,7 +10,7 @@
     "sequelize": "^6.33.0"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "name": "sportify-backend",
   "version": "1.0.0",
