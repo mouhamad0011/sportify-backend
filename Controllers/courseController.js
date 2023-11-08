@@ -91,7 +91,7 @@ exports.getCourseById = async (req ,res) =>{
     
     const id=req.params.id;
     try {
-      const query=`SELECT distinct users.full_name as coach,course_name,quizzes.quiz_id,questions,choices,correct_answers,quizzes.date,quizzes.hour
+      const query=`SELECT distinct users.full_name as coach,users.email,course_name,quizzes.quiz_id,questions,choices,correct_answers,quizzes.date,quizzes.hour
        FROM courses,classes,enrollement,quizzes,QA,users
        WHERE courses.course_id=classes.course_id
        AND courses.coach_id=users.user_id
